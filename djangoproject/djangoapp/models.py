@@ -2,14 +2,14 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 
-def validatate_price_positive(price):
+def validate_price_positive(value):
     if value <= 0:
         raise ValidationError('Price must be positive.')
 
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[validatate_price_positive])
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[validate_price_positive])
     available = models.BooleanField()
 
 
