@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Product
+from decimal import Decimal
 
 # def hello_world(request):
 #     return HttpResponse("Hello, World!")
@@ -18,11 +19,9 @@ def product_list(request):
         price = data.get('price')
         available = data.get('available')
 
-        product = Product.objects.create(
-            name=name, 
-            price=price,
-            available=available
-        )
+        product = Product(name=name, price=Decimal(str(price)), available=available)
+        product.full_clean()
+        product.save()
 
         return JsonResponse({
             'id': product.id,
@@ -33,6 +32,7 @@ def product_list(request):
             status=201
         )
 
+@csrf_exempt
 def product_detail(request, product_id):
     if request.method == 'GET':
         product = Product.objects.get(id=product_id)
