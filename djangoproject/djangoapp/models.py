@@ -2,7 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 
-def validatate_price_positive(value):
+def validatate_price_positive(price):
     if value <= 0:
         raise ValidationError('Price must be positive.')
 
