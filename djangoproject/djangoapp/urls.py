@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import ProductViewSet, CustomerViewSet, OrderViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 # urlpatterns = [
 #     path('hello/', hello_world, name='hello_world'),
@@ -14,4 +15,6 @@ router.register(r'orders', OrderViewSet, basename='order')
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 ]
