@@ -27,7 +27,7 @@ jobs:
       - name: Run unit tests
         run: |
           source venv/bin/activate
-          python djangoproject/manage.py test djangoapp/tests
+          python djangoproject/manage.py test djangoproject/djangoapp/tests
           
   docs:
     runs-on: ubuntu-latest
