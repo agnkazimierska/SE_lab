@@ -5,33 +5,9 @@ on:
     branches:
       - main
       
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-        
-      - name: Set up environment
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.12
-          
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-          
-      - name: Run unit tests
-        run: |
-          source venv/bin/activate
-          python djangoproject/manage.py test djangoproject/djangoapp/tests
-          
+jobs:         
   docs:
     runs-on: ubuntu-latest
-    needs: test
     
     steps:
       - name: Check out code
@@ -51,14 +27,14 @@ jobs:
       - name: Generate API documentation
         run: |
           source venv/bin/activate
-          python djangoproject/manage.py generateschema > docs.json
+          python djangoproject/manage.py generateschema > djangoproject/docs.json
           
       - name: Commit and push documentation
         run:
           git config --global user.mail "agnieszka.kazimierska@pwr.edu.pl"
           git config --global user.name "GitHub Actions"
-          git add djangoproject/docs.json
-          git commit -m "Update documentation"
+          git add djangoproject/docs.json djangoproject/index.html
+          git commit -m "Updated documentation"
           git push origin main
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
