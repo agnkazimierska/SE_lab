@@ -30,7 +30,7 @@ jobs:
           python djangoproject/manage.py generateschema > djangoproject/docs.json
           
       - name: Commit and push documentation
-        run:
+        run: |
           git config --global user.mail "agnieszka.kazimierska@pwr.edu.pl"
           git config --global user.name "GitHub Actions"
           git add djangoproject/docs.json djangoproject/index.html
