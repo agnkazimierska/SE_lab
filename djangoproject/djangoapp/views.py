@@ -3,6 +3,9 @@ from .models import Product, Customer, Order
 from .serializers import ProductSerializer, CustomerSerializer, OrderSerializer
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAdminOrReadOnly
+from rest_framework import generics
+from rest_framework.filters import SearchFilter
+
 
 # def hello_world(request):
 #     return HttpResponse("Hello, World!")
@@ -11,6 +14,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
+    filter_backends = (SearchFilter,)
+    search_fields = ['name']
 
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
