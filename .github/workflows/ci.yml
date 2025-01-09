@@ -38,7 +38,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add docs.json index.html
-          git diff --quiet --cached
+          git diff --quiet || echo "Checking for changes."
         id: changes-check
       
       - name: Stop if no changes to commit
