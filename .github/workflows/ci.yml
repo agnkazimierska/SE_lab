@@ -39,11 +39,12 @@ jobs:
           git diff docs.json
           
       - name: Check for changes
+        id: changes-check
         continue-on-error: true
         run: |
           git add docs.json
-          git diff --quiet docs.json || echo "Checking for changes."
-        id: changes-check
+          git diff --quiet docs.json || echo "Changes detected."
+          echo "Checked for changes."
       
       - name: Stop if no changes to commit
         if: ${{ steps.changes-check.outcome != 'success' }}
