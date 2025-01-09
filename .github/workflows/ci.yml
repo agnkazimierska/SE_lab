@@ -33,6 +33,11 @@ jobs:
           source venv/bin/activate
           python djangoproject/manage.py generateschema > docs.json
           
+      - name: Check file status
+        run: |
+          git status
+          git diff docs.json
+          
       - name: Check for changes
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
