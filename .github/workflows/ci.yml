@@ -51,11 +51,11 @@ jobs:
         id: changes-check
       
       - name: Stop if no changes to commit
-        if: steps.changes-check.outcome == 'success'
+        if: steps.changes-check.outcome != 'success'
         run: echo "No changes detected. Skipping commit and push."
       
       - name: Commit and push documentation
-        if: steps.changes-check.outcome != 'success'
+        if: steps.changes-check.outcome == 'success'
         run: |
           git commit -m "Updated documentation"
           git push origin main
