@@ -44,6 +44,7 @@ jobs:
           git diff docs.json
           
       - name: Check for changes
+        continue-on-error: true
         run: |
           git add docs.json index.html
           git diff --quiet || echo "Checking for changes."
