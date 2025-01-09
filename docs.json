@@ -466,7 +466,7 @@ paths:
           description: ''
       tags:
       - api
-  /api/token/new/:
+  /api/token/refresh/:
     post:
       operationId: createTokenRefresh
       description: 'Takes a refresh type JSON web token and returns an access type
