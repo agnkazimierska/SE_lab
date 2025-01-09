@@ -50,7 +50,7 @@ jobs:
         run: echo "No changes detected. Skipping commit and push."
         
       - name: Proceed if changes to commit
-        if: ${{ steps.changes-check.outcome == 'success }}
+        if: ${{ steps.changes-check.outcome == 'success' }} 
         run: echo "Changes detected. Proceeding to commit and push."
         
       - name: Commit and push documentation
