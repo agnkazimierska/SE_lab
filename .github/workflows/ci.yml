@@ -42,8 +42,10 @@ jobs:
         id: changes-check
         continue-on-error: true
         run: |
+          git diff docs.json
           git add docs.json
-          git diff --quiet docs.json || echo "Changes detected."
+          git diff docs.json
+          git diff --quiet --cached docs.json || echo "Changes detected."
           echo "Checked for changes."
       
       - name: Stop if no changes to commit
