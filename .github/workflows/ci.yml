@@ -42,7 +42,7 @@ jobs:
         continue-on-error: true
         run: |
           git add docs.json index.html
-          git diff --quiet || echo "Checking for changes v2."
+          git diff --quiet || echo "Checking for changes."
         id: changes-check
       
       - name: Stop if no changes to commit
