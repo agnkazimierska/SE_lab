@@ -33,6 +33,11 @@ jobs:
           source venv/bin/activate
           python djangoproject/manage.py generateschema > docs.json
           
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          
       - name: Check file status
         run: |
           git status
@@ -40,8 +45,6 @@ jobs:
           
       - name: Check for changes
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
           git add docs.json index.html
           git diff --quiet || echo "Checking for changes."
         id: changes-check
@@ -49,7 +52,6 @@ jobs:
       - name: Stop if no changes to commit
         if: steps.changes-check.outcome == 'success'
         run: echo "No changes detected. Skipping commit and push."
-      
       
       - name: Commit and push documentation
         if: steps.changes-check.outcome != 'success'
