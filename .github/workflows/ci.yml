@@ -33,35 +33,11 @@ jobs:
           source venv/bin/activate
           python djangoproject/manage.py generateschema > docs.json
           
-      - name: Check file status
-        run: |
-          git status
-          git diff docs.json
-          
-      - name: Check for changes
-        id: changes-check
-        continue-on-error: true
-        run: |
-          git diff docs.json
-          git add docs.json
-          git diff docs.json
-          git diff --cached docs.json || echo "Changes detected."
-          echo "Checked for changes."
-      
-      - name: Stop if no changes to commit
-        if: ${{ steps.changes-check.outcome == 'success' }}
-        run: echo "No changes detected. Skipping commit and push."
-        
-      - name: Proceed if changes to commit
-        if: ${{ steps.changes-check.outcome != 'success' }} 
-        run: echo "Changes detected. Proceeding to commit and push."
-        
       - name: Commit and push documentation
-        if: ${{ steps.changes-check.outcome != 'success' }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git commit -m "Updated documentation"
+          git commit --allow-empty -m "Regenerated documentation"
           git push origin main
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
