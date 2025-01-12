@@ -37,7 +37,7 @@ jobs:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git commit --allow-empty -m "Recreated documentation"
+          git commit --allow-empty -m "Refreshed documentation"
           git push origin main
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
