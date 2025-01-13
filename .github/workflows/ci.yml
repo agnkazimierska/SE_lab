@@ -13,8 +13,6 @@ jobs:
     services:
       db:
         image: postgres:17
-        ports:
-          - 5432:5432
         env:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpassword
