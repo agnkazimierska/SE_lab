@@ -6,12 +6,38 @@ on:
       - main
   workflow_dispatch:
       
-jobs:         
+jobs:        
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:17
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: testdb
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Build and start containers
+        run: docker-compose up --build -d
+
+      - name: Execute unit tests
+        run: docker exec $(docker-compose ps -q api) python djangoproject/manage.py djangoproject/djangoapp/tests
+
+ 
   docs:
     runs-on: ubuntu-latest
     
     permissions:
       contents: write
+      
+    needs: test
     
     steps:
       - name: Check out code
